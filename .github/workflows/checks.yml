@@ -1,0 +1,49 @@
+name: Fleet acceptance
+on: [workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  linux:
+    if: ${{ github.repository == 'TheHypertextStudio/runner-fleet-public-acceptance' && github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.workflow_ref == 'TheHypertextStudio/runner-fleet-public-acceptance/.github/workflows/checks.yml@refs/heads/main' }}
+    runs-on: ${{ fromJSON(github.run_attempt == 1 && '{"group":"studio-linux","labels":["self-hosted","Linux","ARM64","studio-linux"]}' || '"ubuntu-24.04-arm"') }}
+    timeout-minutes: 15
+    steps:
+      - name: Verify fresh isolated Linux guest
+        if: ${{ github.run_attempt == 1 }}
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json, os, pathlib, pwd, stat
+          assert pwd.getpwuid(os.getuid()).pw_name == 'ci-build' and os.getuid() != 0
+          marker = pathlib.Path('/etc/runner-pool-generation.json')
+          assert marker.stat().st_uid == 0 and stat.S_ISREG(marker.stat().st_mode)
+          value = json.loads(marker.read_text())
+          assert value['profile'] == 'studio' and value['platform'] == 'linux'
+          assert not any(os.environ.get(k) for k in ('GH_TOKEN','GITHUB_TOKEN','SSH_AUTH_SOCK'))
+          print('Fresh isolated guest verified')
+          PY
+      - name: Verify native ARM64 execution
+        shell: bash
+        run: python3 -c "import os, platform; assert os.getuid() != 0; assert platform.machine() in ('arm64', 'aarch64'); print('ARM64 CI passed')"
+  macos:
+    if: ${{ github.repository == 'TheHypertextStudio/runner-fleet-public-acceptance' && github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.workflow_ref == 'TheHypertextStudio/runner-fleet-public-acceptance/.github/workflows/checks.yml@refs/heads/main' }}
+    runs-on: ${{ fromJSON(github.run_attempt == 1 && '{"group":"studio-macos","labels":["self-hosted","macOS","ARM64","studio-macos"]}' || '"macos-15"') }}
+    timeout-minutes: 15
+    steps:
+      - name: Verify fresh isolated macOS guest
+        if: ${{ github.run_attempt == 1 }}
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json, os, pathlib, pwd, stat
+          assert pwd.getpwuid(os.getuid()).pw_name == 'ci-build' and os.getuid() != 0
+          marker = pathlib.Path('/etc/runner-pool-generation.json')
+          assert marker.stat().st_uid == 0 and stat.S_ISREG(marker.stat().st_mode)
+          value = json.loads(marker.read_text())
+          assert value['profile'] == 'studio' and value['platform'] == 'macos'
+          assert not any(os.environ.get(k) for k in ('GH_TOKEN','GITHUB_TOKEN','SSH_AUTH_SOCK'))
+          print('Fresh isolated guest verified')
+          PY
+      - name: Verify native ARM64 execution
+        shell: bash
+        run: python3 -c "import os, platform; assert os.getuid() != 0; assert platform.machine() in ('arm64', 'aarch64'); print('ARM64 CI passed')"

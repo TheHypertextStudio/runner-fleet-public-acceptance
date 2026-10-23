@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "workflows": [
+    {
+      "path": ".github/workflows/checks.yml",
+      "sha256": "3a054e6cb59fcd20304171a73ffdff38ba40c0b11b98ff06a5b13568dee5beae"
+    }
+  ]
+}
