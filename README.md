@@ -1,14 +1,14 @@
 # Public runner acceptance
 
-Hosted execution is disabled. Every attempt waits for local Mac capacity. Re-enabling hosted recovery requires explicit owner approval, setting `HYPERTEXT_HOSTED_CI_ENABLED` to `true`, and enabling the recovery workflow; it never resumes automatically.
-
 A small public test repository for The Hypertext Studio shared CI fleet. It contains no product code or private operational records.
 
-The manual main-branch workflow verifies isolated local ARM64 Linux and macOS guests. A single bounded hosted retry verifies the same test on GitHub-hosted ARM64 when local capacity is unavailable. The recovery workflow and immutable manifest are generated from the reviewed source after GitHub assigns the real repository ID.
+Every acceptance attempt uses isolated local ARM64 Linux and macOS guests. If local Mac capacity is unavailable, jobs remain queued without allocating a runner or starting build compute. Hosted execution is disabled; the workflow has no hosted fallback selector, and the hosted recovery workflow remains disabled.
 
-Only `.github/workflows/checks.yml` on the main branch is eligible for local execution. Public fork and pull-request checks must not receive local runner capacity. Existing organization runner restrictions remain exact.
+Only a manual run of `.github/workflows/checks.yml` on this repository's trusted `main` branch is eligible for local execution. Pull-request jobs are skipped before runner allocation. Forks and other branches cannot receive local runner capacity; exact organization runner restrictions and job guards remain in place.
 
-No deployment, signing, publishing, paid runner or budget increase is part of this repository.
+Hosted fallback would require a separately reviewed routing change and explicit owner authorization for its costs. Changing a repository variable or enabling the existing watchdog alone does not add hosted routing to this workflow.
+
+No deployment, signing, publishing, paid runner or budget increase is part of this repository. The recovery manifest records the exact reviewed workflow bytes.
 
 ## Local commit formatting
 
