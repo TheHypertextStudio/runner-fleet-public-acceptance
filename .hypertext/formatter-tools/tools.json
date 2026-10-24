@@ -1,10 +1,12 @@
 {
   "schema_version": 1,
   "prettier": {
-    "version": "3.9.6"
+    "version": "3.9.10"
   },
-  "npm": {},
-  "ruff": "0.15.9",
+  "npm": {
+    "@thehypertextstudio/format-config": "0.0.1"
+  },
+  "ruff": "0.17.2",
   "native_setup": [],
   "sql_dialect": "postgresql"
 }
