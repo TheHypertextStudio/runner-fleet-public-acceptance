@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "formatters": [
+    {
+      "include": ["*.json"],
+      "argv": [
+        "node",
+        ".hypertext/formatter-tools/prettier.mjs",
+        "{path}",
+        "json"
+      ]
+    },
+    {
+      "include": ["*.py", "*.pyi"],
+      "argv": ["python3", ".hypertext/formatter-tools/run.py", "{path}"]
+    },
+    {
+      "include": ["*.yml", "*.yaml"],
+      "argv": [
+        "node",
+        ".hypertext/formatter-tools/prettier.mjs",
+        "{path}",
+        "yaml"
+      ]
+    },
+    {
+      "include": ["*.md", "*.markdown", "*.mdc"],
+      "argv": [
+        "node",
+        ".hypertext/formatter-tools/prettier.mjs",
+        "{path}",
+        "markdown"
+      ]
+    },
+    {
+      "include": ["*.js", "*.jsx", "*.mjs", "*.cjs"],
+      "argv": [
+        "node",
+        ".hypertext/formatter-tools/prettier.mjs",
+        "{path}",
+        "babel"
+      ]
+    }
+  ],
+  "exclude": [
+    {
+      "include": [
+        ".hypertext/formatting/*",
+        ".hypertext/formatter-tools/setup.py",
+        ".hypertext/formatter-tools/run.py",
+        ".hypertext/formatter-tools/prettier.mjs",
+        ".hypertext/formatter-tools/text.py"
+      ],
+      "kind": "vendored",
+      "reason": "Locked shared formatter engine; maintained and formatted in product-standards."
+    },
+    {
+      "include": [".gitignore"],
+      "kind": "non-formattable",
+      "reason": "Tool-owned dependency lock, credential/value file, or exact line protocol; preserve its semantic bytes."
+    }
+  ]
+}
