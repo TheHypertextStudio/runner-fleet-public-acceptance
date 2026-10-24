@@ -3,12 +3,7 @@
   "formatters": [
     {
       "include": ["*.json"],
-      "argv": [
-        "node",
-        ".hypertext/formatter-tools/prettier.mjs",
-        "{path}",
-        "json"
-      ]
+      "argv": ["node", ".hypertext/formatter-tools/prettier.mjs", "{path}", "json"]
     },
     {
       "include": ["*.py", "*.pyi"],
@@ -16,30 +11,15 @@
     },
     {
       "include": ["*.yml", "*.yaml"],
-      "argv": [
-        "node",
-        ".hypertext/formatter-tools/prettier.mjs",
-        "{path}",
-        "yaml"
-      ]
+      "argv": ["node", ".hypertext/formatter-tools/prettier.mjs", "{path}", "yaml"]
     },
     {
       "include": ["*.md", "*.markdown", "*.mdc"],
-      "argv": [
-        "node",
-        ".hypertext/formatter-tools/prettier.mjs",
-        "{path}",
-        "markdown"
-      ]
+      "argv": ["node", ".hypertext/formatter-tools/prettier.mjs", "{path}", "markdown"]
     },
     {
       "include": ["*.js", "*.jsx", "*.mjs", "*.cjs"],
-      "argv": [
-        "node",
-        ".hypertext/formatter-tools/prettier.mjs",
-        "{path}",
-        "babel"
-      ]
+      "argv": ["node", ".hypertext/formatter-tools/prettier.mjs", "{path}", "babel"]
     }
   ],
   "exclude": [
@@ -49,7 +29,8 @@
         ".hypertext/formatter-tools/setup.py",
         ".hypertext/formatter-tools/run.py",
         ".hypertext/formatter-tools/prettier.mjs",
-        ".hypertext/formatter-tools/text.py"
+        ".hypertext/formatter-tools/text.py",
+        ".hypertext/formatter-tools/preset.mjs"
       ],
       "kind": "vendored",
       "reason": "Locked shared formatter engine; maintained and formatted in product-standards."
