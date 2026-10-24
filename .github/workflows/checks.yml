@@ -5,7 +5,9 @@ permissions:
 jobs:
   linux:
     if: ${{ github.repository == 'TheHypertextStudio/runner-fleet-public-acceptance' && github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.workflow_ref == 'TheHypertextStudio/runner-fleet-public-acceptance/.github/workflows/checks.yml@refs/heads/main' }}
-    runs-on: ${{ fromJSON((github.run_attempt == 1 || vars.HYPERTEXT_HOSTED_CI_ENABLED != 'true') && '{"group":"studio-linux","labels":["self-hosted","Linux","ARM64","studio-linux"]}' || '"ubuntu-24.04-arm"') }}
+    runs-on:
+      group: studio-linux
+      labels: [self-hosted, Linux, ARM64, studio-linux]
     timeout-minutes: 15
     steps:
       - name: Verify fresh isolated Linux guest
@@ -27,7 +29,9 @@ jobs:
         run: python3 -c "import os, platform; assert os.getuid() != 0; assert platform.machine() in ('arm64', 'aarch64'); print('ARM64 CI passed')"
   macos:
     if: ${{ github.repository == 'TheHypertextStudio/runner-fleet-public-acceptance' && github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.workflow_ref == 'TheHypertextStudio/runner-fleet-public-acceptance/.github/workflows/checks.yml@refs/heads/main' }}
-    runs-on: ${{ fromJSON((github.run_attempt == 1 || vars.HYPERTEXT_HOSTED_CI_ENABLED != 'true') && '{"group":"studio-macos","labels":["self-hosted","macOS","ARM64","studio-macos"]}' || '"macos-15"') }}
+    runs-on:
+      group: studio-macos
+      labels: [self-hosted, macOS, ARM64, studio-macos]
     timeout-minutes: 15
     steps:
       - name: Verify fresh isolated macOS guest
