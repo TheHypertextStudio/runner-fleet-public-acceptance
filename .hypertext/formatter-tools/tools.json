@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "prettier": {
+    "version": "3.9.6"
+  },
+  "npm": {},
+  "ruff": "0.15.9",
+  "native_setup": [],
+  "sql_dialect": "postgresql"
+}

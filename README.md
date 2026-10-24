@@ -9,3 +9,15 @@ The manual main-branch workflow verifies isolated local ARM64 Linux and macOS gu
 Only `.github/workflows/checks.yml` on the main branch is eligible for local execution. Public fork and pull-request checks must not receive local runner capacity. Existing organization runner restrictions remain exact.
 
 No deployment, signing, publishing, paid runner or budget increase is part of this repository.
+
+## Local commit formatting
+
+Prepare the pinned formatting tools and local Git hooks from this repository's root:
+
+```sh
+python3 .hypertext/formatting/install.py
+```
+
+Repeat this command after updating formatter pins or creating a checkout. Commits
+format staged source and configuration while retaining unstaged edits. Setup
+prepares dependencies; committing never downloads tools or starts build services.
