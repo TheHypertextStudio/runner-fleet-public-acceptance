@@ -39,6 +39,11 @@
       "include": [".gitignore"],
       "kind": "non-formattable",
       "reason": "Tool-owned dependency lock, credential/value file, or exact line protocol; preserve its semantic bytes."
+    },
+    {
+      "include": ["LICENSE", ".github/CODEOWNERS"],
+      "kind": "non-formattable",
+      "reason": "Verbatim license text and line-oriented ownership patterns."
     }
   ]
 }
